@@ -20,6 +20,7 @@
         <p>Choose a password for your page.</p>
         <input type="password" placeholder="Password" [(ngModel)]="password">
         <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+        <p *ngIf="registrationError" class="error">{{ registrationError }}</p>
         <button (click)="register()">Sign up</button>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -16,8 +17,9 @@ export class LandingComponent {
   password = '';
   confirmPassword = '';
   usernameTaken = false;
+  registrationError = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   async nextStep() {
     this.usernameTaken = await this.authService.isUsernameTaken(this.username);
@@ -30,11 +32,12 @@ export class LandingComponent {
     if (this.password && this.password === this.confirmPassword) {
       const result = await this.authService.register(this.username, this.password);
       if (result) {
-        console.log('User registered successfully');
-        // Redirect to user profile or login
+        this.router.navigate(['/home']);
       } else {
-        console.log('Error registering user');
+        this.registrationError = 'An error occurred during registration. Please try again.';
       }
+    } else {
+      this.registrationError = 'Passwords do not match.';
     }
   }
 }
