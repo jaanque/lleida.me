@@ -1,0 +1,27 @@
+<div class="landing-container">
+  <div class="left-panel">
+    <h1>Welcome to My App</h1>
+    <p>A creative way to sell digital or physical items</p>
+  </div>
+  <div class="right-panel">
+    <div class="registration-form">
+      <div [class.hidden]="step !== 1" class="form-step">
+        <h2>Create your account</h2>
+        <p>Choose a username for your page.</p>
+        <div class="input-group">
+          <span>domain.com/</span>
+          <input type="text" placeholder="yourname" [(ngModel)]="username">
+        </div>
+        <p *ngIf="usernameTaken" class="error">Username is already taken.</p>
+        <button (click)="nextStep()">Next</button>
+      </div>
+      <div [class.hidden]="step !== 2" class="form-step">
+        <h2>Create your account</h2>
+        <p>Choose a password for your page.</p>
+        <input type="password" placeholder="Password" [(ngModel)]="password">
+        <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword">
+        <button (click)="register()">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
