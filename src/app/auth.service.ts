@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { environment } from '../environments/environment';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class AuthService {
     return data.length > 0;
   }
 
-  async register(username: string, password) {
+  async register(username: string, password: string) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const { data, error } = await this.supabase

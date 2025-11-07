@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true
 })
 export class ProfileComponent implements OnInit {
-  username: string;
+  username: string = '';
   user: any; // Define a proper interface for the user object
 
   constructor(
@@ -20,9 +20,12 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.username = this.route.snapshot.paramMap.get('username');
-    this.authService.getUser(this.username).then(user => {
-      this.user = user;
-    });
+    const username = this.route.snapshot.paramMap.get('username');
+    this.username = username ? username : '';
+    if (this.username) {
+      this.authService.getUser(this.username).then(user => {
+        this.user = user;
+      });
+    }
   }
 }
